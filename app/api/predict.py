@@ -1,3 +1,9 @@
+"""API module for prediction.
+
+This module contains API endpoints for predicting a wine quality from its features and predicting the best wine possible based on all wines data.
+
+"""
+
 from fastapi import APIRouter
 import pandas as pd
 import os
@@ -6,10 +12,21 @@ from app.model import model_xgboost
 router = APIRouter()
 
 @router.post("/api/predict")
-async def predict_wine_quality(fixed_acidity, volatile_acidity, citric_acid, residual_sugar, chlorides, free_sulfur_dioxide, total_sulfur_dioxide, density, pH, sulphates, alcohol):
+async def predict_wine_quality(fixed_acidity:float, volatile_acidity:float, citric_acid:float, residual_sugar:float, chlorides:float, free_sulfur_dioxide:int, total_sulfur_dioxide:int, density:float, pH:float, sulphates:float, alcohol:float) -> dict:
+    """Preparation of Wines.csv data.
+
+    The data is separated between features and target and then split into training and testing sets.
+
+    Args:
+        Floats and ints corresponding to the features values of the wine we want to predict.
+
+    Returns:
+        A dictionary containing the message and the predicted note.
+    """
+
     wine = {'fixed acidity' : [fixed_acidity], 
-            'volatile acidity' : [fixed_acidity], 
-            'citric acid' : [volatile_acidity], 
+            'volatile acidity' : [volatile_acidity], 
+            'citric acid' : [citric_acid], 
             'residual sugar' : [residual_sugar],
             'chlorides' : [chlorides], 
             'free sulfur dioxide' : [free_sulfur_dioxide], 
@@ -26,7 +43,12 @@ async def predict_wine_quality(fixed_acidity, volatile_acidity, citric_acid, res
 
 
 @router.get("/api/predict")
-async def predict_best_wine():
+async def predict_best_wine() -> dict:
+    """Prediction of the best wine possible.
+
+    Returns:
+        A dictionary of the message and another dictionary of the features and their values.
+    """
     best_wine = model_xgboost.best_wine_features()
     return {"Le vin parfait a les caracteristiques suivantes: " : {"fixed acidity" : best_wine[0], 
                                                 "volatile acidity": best_wine[1],
