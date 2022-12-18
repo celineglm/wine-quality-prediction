@@ -20,3 +20,9 @@ Depuis la racine du projet:
 - POST /api/model/retrain : réentraîner le modèle
 
 ### Exécution des tests :
+
+Afin d'executer les tests, executez la commande:
+
+`pytest`
+
+Depuis la racine du projet.
