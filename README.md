@@ -1,8 +1,7 @@
 ## Wine Quality Prediction
 
 ### Installation
-Cloner le repository
-Installer les requirements.txt:
+Cloner le repository et installer les requirements.txt avec:
 
 `pip install -r requirements.txt`
 
@@ -11,7 +10,7 @@ Depuis la racine du projet:
 
 `uvicorn app.main:app`
 
-### Liste des endpoints de l'API
+### Liste des méthodes de l'API
 
 - POST /api/predict : réaliser une prédiction de la qualité d'un vin en rentrant toutes ses caractéristiques
 - GET /api/predict : générer les caractéristiques du vin parfait
