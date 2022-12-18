@@ -7,6 +7,7 @@ The model can be saved and loaded afterwards
 
 import pandas as pd
 import xgboost as xgb
+import numpy as np
 import pickle
 import os
 from sklearn.model_selection import train_test_split
@@ -79,9 +80,9 @@ def predict(wine):
     """Prédit la note d'un vin en fonction de ses caractéristiques.
     """
     model = load_model()
-    # Rounding of predicted values
-    res = round(model.predict(wine))
-    return res
+    res = model.predict(wine)
+    rounded_res = [np.round(x) for x in res]
+    return rounded_res
 
 
 def best_wine_features():
