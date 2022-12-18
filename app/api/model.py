@@ -33,9 +33,15 @@ async def get_description() -> dict:
     return desc
 
 @router.put("/api/model")
-async def add_data():
-    # en cours
-    return 0
+async def add_data(fixed_acidity:float, volatile_acidity:float, citric_acid:float, 
+                residual_sugar:float, chlorides:float, free_sulfur_dioxide:int,
+                total_sulfur_dioxide:int, density:float, pH:float, sulphates:float, 
+                alcohol:float, quality:int):
+    model_xgboost.add_data_csv(fixed_acidity, volatile_acidity, citric_acid, 
+                residual_sugar, chlorides, free_sulfur_dioxide,
+                total_sulfur_dioxide, density, pH, sulphates, 
+                alcohol, quality)
+    return {"message": "La donnée a été ajoutée"}
     
 
 @router.post("/api/model/retrain")

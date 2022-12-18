@@ -10,6 +10,7 @@ import xgboost as xgb
 import numpy as np
 import pickle
 import os
+from csv import writer
 from sklearn.model_selection import train_test_split
 from sklearn.metrics import mean_squared_error
 
@@ -128,3 +129,16 @@ def description() -> dict:
                 "mean_squared_error" : mse
     }
     return parameters
+
+def add_data_csv(fixed_acidity:float, volatile_acidity:float, citric_acid:float, 
+                residual_sugar:float, chlorides:float, free_sulfur_dioxide:int,
+                total_sulfur_dioxide:int, density:float, pH:float, sulphates:float, 
+                alcohol:float, quality:int):
+    list = [fixed_acidity, volatile_acidity, citric_acid, 
+                residual_sugar, chlorides, free_sulfur_dioxide,
+                total_sulfur_dioxide, density, pH, sulphates, 
+                alcohol, quality]
+    with open('./app/data/Wines.csv', 'a') as f_object:
+        writer_object = writer(f_object)
+        writer_object.writerow(list)
+        f_object.close()
